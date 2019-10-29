@@ -63,6 +63,7 @@
     display: block;
     margin-bottom: 20px;
     color: #d50000;
+    cursor: pointer;
   }
 
   .tangerine-container {

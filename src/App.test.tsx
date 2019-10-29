@@ -1,9 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import renderer from 'react-test-renderer';
+import { Provider } from 'react-redux';
 import App from './App';
+import mockStore from './tests/helpers/mockStore';
 
 it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
+  
+  const props = {
+    user: {
+        isLogin: false,
+    },
+    albums: null,
+    photos: null,
+  };
+
+  const tree = renderer
+      .create(<Provider store={mockStore(props)}><App {...props} /></Provider>)
+      .toJSON();
+  expect(tree).toMatchSnapshot();
+
 });

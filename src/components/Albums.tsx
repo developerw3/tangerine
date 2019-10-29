@@ -1,6 +1,7 @@
 import React, { useEffect} from 'react';
 import { MDBCol, MDBListGroup, MDBListGroupItem, MDBJumbotron, MDBBadge } from "mdbreact";
 import IAlbums, { IAlbum } from '../models/Albums';
+import Spinner from './Spinner';
 import runSaga from '../store/saga/injectSaga';
 import { getAlbums, deleteAlbums } from '../sagas/AlbumsSaga';
 
@@ -25,16 +26,6 @@ const Albums = (props: IFAlbums): JSX.Element => {
 
     }, []);
 
-    const spinner = (): JSX.Element => {
-        return (
-            <div className='d-flex justify-content-center'>
-                <div className='spinner-border' role='status'>
-                <span className='sr-only'>Loading...</span>
-                </div>
-            </div>
-        );
-    }
-
     const noAlbums = (): JSX.Element => {
         return (
             <MDBJumbotron>
@@ -51,7 +42,7 @@ const Albums = (props: IFAlbums): JSX.Element => {
     return (
         <MDBCol md={md as any} className={classAlbumsMobile}>
             {
-                !albums ? spinner() : (albums.length === 0) ? noAlbums() :
+                !albums ? <Spinner /> : (albums.length === 0) ? noAlbums() :
                 <MDBJumbotron>
                     <MDBListGroup>
                         <MDBListGroupItem href="#" className="text-center" active key="0"><h3>Albums</h3></MDBListGroupItem>

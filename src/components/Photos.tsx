@@ -3,6 +3,7 @@ import { MDBCol, MDBListGroup, MDBListGroupItem, MDBJumbotron, MDBTable, MDBTabl
 import runSaga from '../store/saga/injectSaga';
 import { deletePhotos } from '../sagas/PhotosSaga';
 import IPhotos, { IPhoto } from '../models/Photos';
+import Spinner from './Spinner';
 
 interface IFPhotos {
     photos: IPhotos
@@ -24,16 +25,6 @@ const Photos = (props:  IFPhotos): JSX.Element => {
         
     }, []);
 
-    const spinner = (): JSX.Element => {
-        return (
-            <div className='d-flex justify-content-center'>
-                <div className='spinner-border' role='status'>
-                <span className='sr-only'>Loading...</span>
-                </div>
-            </div>
-        );
-    }
-
     const noPhotos = (): JSX.Element => {
         return (
             <MDBJumbotron>
@@ -50,9 +41,9 @@ const Photos = (props:  IFPhotos): JSX.Element => {
     return (
         <MDBCol md={md as any} className={`tangerine-fixed ${className}`}>
             {
-                !photos ? spinner() : (photos.length === 0) ? noPhotos() :
+                !photos ? <Spinner /> : (photos.length === 0) ? noPhotos() :
                 <MDBJumbotron className="photo-mobile">
-                    <div onClick={ showAlbums } className="photo-mobile-close" >
+                    <div onClick={ showAlbums } className="photo-mobile-close">
                         <svg id="i-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentcolor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2">
                             <path d="M2 30 L30 2 M30 30 L2 2" />
                         </svg>
